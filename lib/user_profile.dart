@@ -6,34 +6,130 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: const Text('Tite'),
+        title: const Text('User Info'),
         centerTitle: true,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.cyan,
       ),
       body: Container(
         width: double.infinity,
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
-            ),
             Container(
-              width: 100,
-              height: 100,
-              child: const Placeholder(),
+              color: Colors.white,
+              width: double.infinity,
+              child: Column(
+                children: const [
+                  SizedBox(height: 20),
+                  _UserLogo(),
+                  SizedBox(height: 15),
+                  _UserName(),
+                  SizedBox(height: 5),
+                  _UserAccoutName(),
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
-            const Text(
-              'text',
-              style: TextStyle(color: Colors.black, fontSize: 40),
+            const SizedBox(height: 15),
+            Column(
+              children: const [
+                _UserRow(text: 'Информация', icon: Icons.info_outline),
+                _UserRow(text: 'Сообщения', icon: Icons.message_outlined),
+                _UserRow(text: 'Фотографии', icon: Icons.photo),
+                _UserRow(text: 'Контакты', icon: Icons.contact_mail),
+              ],
             ),
-            const Text(
-              'text',
-              style: TextStyle(color: Colors.black, fontSize: 40),
-            ),
+            const SizedBox(height: 15),
+            Column(
+              children: const [
+                _UserRow(text: 'Выйти', icon: Icons.exit_to_app),
+                _UserRow(text: 'Удалить аккаунт', icon: Icons.delete),
+              ],
+            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class _UserRow extends StatelessWidget {
+  final String text;
+  final IconData icon;
+
+  const _UserRow({
+    Key? key,
+    required this.text,
+    required this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      margin: const EdgeInsets.only(bottom: 1),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: Colors.cyan,
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+                child: Text(
+              text,
+              style: const TextStyle(fontSize: 20),
+            )),
+            const Icon(Icons.chevron_right_outlined),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _UserAccoutName extends StatelessWidget {
+  const _UserAccoutName({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      '@gooodwin67',
+      style: TextStyle(color: Colors.black, fontSize: 15),
+    );
+  }
+}
+
+class _UserName extends StatelessWidget {
+  const _UserName({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      'Алейник Андрей',
+      style: TextStyle(color: Colors.black, fontSize: 25),
+    );
+  }
+}
+
+class _UserLogo extends StatelessWidget {
+  const _UserLogo({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      child: const Placeholder(),
     );
   }
 }
