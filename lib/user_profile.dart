@@ -5,6 +5,13 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var list = [
+      RowDataFront(text: 'text', icon: Icons.info_outline),
+      RowDataFront(text: 'text2', icon: Icons.message_outlined),
+    ];
+
+    var list2 = list.map((e) => _UserRow(text: e.text, icon: e.icon)).toList();
+
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
@@ -33,12 +40,14 @@ class UserProfile extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Column(
-              children: const [
+              children:
+                  /*
                 _UserRow(text: 'Информация', icon: Icons.info_outline),
                 _UserRow(text: 'Сообщения', icon: Icons.message_outlined),
                 _UserRow(text: 'Фотографии', icon: Icons.photo),
                 _UserRow(text: 'Контакты', icon: Icons.contact_mail),
-              ],
+                */
+                  list2,
             ),
             const SizedBox(height: 15),
             Column(
@@ -52,6 +61,12 @@ class UserProfile extends StatelessWidget {
       ),
     );
   }
+}
+
+class RowDataFront {
+  var text;
+  var icon;
+  RowDataFront({this.text, this.icon});
 }
 
 class _UserRow extends StatelessWidget {

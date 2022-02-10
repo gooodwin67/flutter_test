@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TestApp extends StatelessWidget {
-  const TestApp({Key? key}) : super(key: key);
+class BankApp extends StatelessWidget {
+  const BankApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,10 @@ class TestApp extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Container(
-                      color: Colors.grey[800],
+                      decoration: BoxDecoration(
+                        color: Colors.grey[800],
+                        borderRadius: BorderRadius.circular(7),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6, vertical: 4),
@@ -60,9 +63,11 @@ class TestApp extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(7)),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  color: Colors.grey[800],
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Column(
                     children: [
                       Row(
