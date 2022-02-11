@@ -9,11 +9,38 @@ class ListViewApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(),
-        body: ListView.builder(
-            itemCount: 100,
-            itemBuilder: (BuildContext, index) {
-              return Text('data $index');
-            }),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 500,
+                        color: Colors.red,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: 100,
+                        height: 500,
+                        color: Colors.red,
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: 100,
+                        height: 500,
+                        color: Colors.red,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
