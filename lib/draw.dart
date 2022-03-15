@@ -18,7 +18,8 @@ class _DrawState extends State<Draw> {
   void onChangeSliderValue(value) {
     _currentSliderValue = value;
     percent = value / 100;
-    newPersent = value.round();
+    newPersent = percent * 100.round();
+
     setState(() {});
   }
 
@@ -28,7 +29,7 @@ class _DrawState extends State<Draw> {
       percent = num / 100;
       newPersent = double.parse(text);
     } else
-      percent = 0;
+      newPersent = 0;
     setState(() {});
   }
 
@@ -72,7 +73,7 @@ class _DrawState extends State<Draw> {
                   fit: StackFit.expand,
                   children: [
                     CustomPaint(
-                      painter: MyPaint(percent: percent),
+                      painter: MyPaint(percent: newPersent),
                     ),
                     Center(
                       child: Text(
