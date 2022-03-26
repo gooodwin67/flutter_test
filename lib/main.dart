@@ -18,4 +18,4 @@ import 'package:flutterprojects/textfield.dart';
 
 //import 'app.dart';
 
-void main() => runApp(MultyGame());
+void main() => runApp(Test());
