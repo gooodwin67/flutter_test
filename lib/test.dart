@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -9,44 +8,19 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  int _counter = 0;
-  List<String> list = [];
-  List<String> list2 = ['6', '7', '8'];
+  int inc = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  //Loading counter value on start
-  void _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    //prefs.clear();
+  pressedMinus() {
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0);
-      list = (prefs.getStringList('list') ?? ['0']);
+      if (inc > 0) {
+        inc--;
+      }
     });
   }
 
-  //Incrementing counter after click
-  void _incrementCounter() async {
-    final prefs = await SharedPreferences.getInstance();
+  pressedPlus() {
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0) + 1;
-      prefs.setInt('counter', _counter);
-
-      list.add('1');
-      prefs.setStringList('list', list);
-    });
-  }
-
-  void _reset() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.clear();
-      list = [];
-      _counter = 0;
+      inc++;
     });
   }
 
@@ -54,23 +28,33 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              Text('$_counter'),
-              SizedBox(height: 20),
-              Row(
-                children: list.map((e) => Text(e)).toList(),
-              ),
-              ElevatedButton(onPressed: _reset, child: Text('Reset'))
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
+        body: Container(
+            width: double.infinity,
+            color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: pressedMinus,
+                      child: Text('-'),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: pressedPlus,
+                      child: Text('+'),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  inc.toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            )),
       ),
     );
   }
