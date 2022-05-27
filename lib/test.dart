@@ -5,8 +5,12 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          color: Colors.red,
+        ),
+      ),
     );
   }
 }
