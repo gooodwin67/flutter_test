@@ -16,9 +16,8 @@ import 'package:flutterprojects/test_sliver.dart';
 import 'package:flutterprojects/wrap_safearea.dart';
 import 'package:flutterprojects/test_app.dart';
 import 'package:flutterprojects/textfield.dart';
-//import 'package:flutterprojects/stak.dart';
-//import 'package:flutterprojects/singe_child_scroll_view.dart';
+import 'package:flutterprojects/stak.dart';
+import 'package:flutterprojects/singe_child_scroll_view.dart';
+import 'app.dart';
 
-//import 'app.dart';
-
-void main() => runApp(Test());
+void main() => runApp(Buttons());
