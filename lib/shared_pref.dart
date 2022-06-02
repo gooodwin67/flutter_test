@@ -9,44 +9,15 @@ class SharedTest extends StatefulWidget {
 }
 
 class _SharedTestState extends State<SharedTest> {
-  int _counter = 0;
-  List<String> list = [];
-  List<String> list2 = ['6', '7', '8'];
+  int number = 0;
+  int number2 = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  //Loading counter value on start
-  void _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    //prefs.clear();
+  onPress() async {
+    final pref = await SharedPreferences.getInstance();
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0);
-      list = (prefs.getStringList('list') ?? ['0']);
-    });
-  }
-
-  //Incrementing counter after click
-  void _incrementCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = (prefs.getInt('counter') ?? 0) + 1;
-      prefs.setInt('counter', _counter);
-
-      list.add('1');
-      prefs.setStringList('list', list);
-    });
-  }
-
-  void _reset() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.clear();
-      list = [];
-      _counter = 0;
+      number++;
+      pref.setInt('number', number);
+      number2 = pref.getInt('number') ?? 0;
     });
   }
 
@@ -54,22 +25,20 @@ class _SharedTestState extends State<SharedTest> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
+        body: Container(
+          width: double.infinity,
+          color: Colors.red,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('$_counter'),
-              SizedBox(height: 20),
-              Row(
-                children: list.map((e) => Text(e)).toList(),
+              Text(number.toString()),
+              ElevatedButton(
+                onPressed: onPress,
+                child: Text('press'),
               ),
-              ElevatedButton(onPressed: _reset, child: Text('Reset'))
+              Text(number2.toString()),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
         ),
       ),
     );

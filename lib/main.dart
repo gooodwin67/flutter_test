@@ -11,6 +11,7 @@ import 'package:flutterprojects/bank_app.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
+import 'package:flutterprojects/shared_pref.dart';
 import 'package:flutterprojects/test.dart';
 import 'package:flutterprojects/test_sliver.dart';
 import 'package:flutterprojects/wrap_safearea.dart';
@@ -20,4 +21,4 @@ import 'package:flutterprojects/stak.dart';
 import 'package:flutterprojects/singe_child_scroll_view.dart';
 import 'app.dart';
 
-void main() => runApp(Buttons());
+void main() => runApp(SharedTest());
