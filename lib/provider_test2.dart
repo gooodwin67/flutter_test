@@ -16,7 +16,7 @@ class TestProviderSecondFile extends StatelessWidget {
         Text(context.watch<Number>().num.toString()),
         ElevatedButton(
             onPressed: () {
-              context.read<Number>().decrement();
+              context.read<Number>().decrement(5);
             },
             child: Text('Press'))
       ],

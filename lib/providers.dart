@@ -8,8 +8,8 @@ class Number with ChangeNotifier {
     notifyListeners();
   }
 
-  void decrement() {
-    _num--;
+  void decrement(int a) {
+    _num += a;
     notifyListeners();
   }
 }
