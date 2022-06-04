@@ -15,19 +15,24 @@ class Number with ChangeNotifier {
 }
 
 class Products with ChangeNotifier {
-  List _list = ['aaa', 'bbb', 'ccc', 4];
+  List _list = [
+    ProdBlock(name: 'aaa'),
+    ProdBlock(name: 'bbb'),
+  ];
+
   List get list => _list;
-  setNewList(newList) {
-    _list = newList;
+  setNewList(index) {
+    _list[index].name = 'asdasd';
+    notifyListeners();
+  }
+
+  setNewList2() {
+    _list.add(ProdBlock(name: 'new'));
+    notifyListeners();
   }
 }
 
-class ProductsBlock extends StatelessWidget {
-  final name;
-  const ProductsBlock({Key? key, required this.name}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(name.toString());
-  }
+class ProdBlock {
+  String name;
+  ProdBlock({Key? key, required this.name});
 }

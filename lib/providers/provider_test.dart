@@ -26,17 +26,17 @@ class _TestProviderState extends State<TestProvider> {
                 child: ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return ProductsBlock(name: list[index]);
+                    return ElevatedButton(
+                        onPressed: () {
+                          context.read<Products>().setNewList(index);
+                        },
+                        child: Text(list[index].name));
                   },
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    list.add('asd');
-                  });
-
-                  context.read<Products>().setNewList(list);
+                  context.read<Products>().setNewList2();
                 },
                 child: Text('Press'),
               ),
