@@ -11,8 +11,8 @@ import 'package:flutterprojects/bank_app.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
-import 'package:flutterprojects/provider_test.dart';
-import 'package:flutterprojects/providers.dart';
+import 'package:flutterprojects/providers/provider_test.dart';
+import 'package:flutterprojects/providers/providers.dart';
 import 'package:flutterprojects/shared_pref.dart';
 import 'package:flutterprojects/test.dart';
 import 'package:flutterprojects/test_sliver.dart';
@@ -27,6 +27,7 @@ import 'app.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Number()),
+        ChangeNotifierProvider(create: (_) => Products()),
       ],
       child: TestProvider(),
     ));
