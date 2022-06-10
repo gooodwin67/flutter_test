@@ -8,6 +8,7 @@ import 'package:flutterprojects/draw.dart';
 import 'package:flutterprojects/images.dart';
 import 'package:flutterprojects/list_view.dart';
 import 'package:flutterprojects/bank_app.dart';
+import 'package:flutterprojects/navigator/main_screen.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
@@ -29,5 +30,5 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(create: (_) => Number()),
         ChangeNotifierProvider(create: (_) => Products()),
       ],
-      child: TestProvider(),
+      child: MainScreen(),
     ));
