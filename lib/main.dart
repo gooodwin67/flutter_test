@@ -25,6 +25,7 @@ import 'package:flutterprojects/stak.dart';
 import 'package:flutterprojects/singe_child_scroll_view.dart';
 import 'package:provider/provider.dart';
 import 'app.dart';
+import 'json.dart';
 
 // void main() => runApp(MultiProvider(
 //       providers: [
@@ -35,7 +36,7 @@ import 'app.dart';
 //     ));
 
 void main() {
-  runApp(MainApp());
+  runApp(JsonWidget());
 }
 
 class MainApp extends StatelessWidget {
@@ -71,6 +72,7 @@ class MainApp extends StatelessWidget {
 }
 
 List widgets = [
+  Widgets(name: 'Json', widget: const JsonWidget()),
   Widgets(name: 'images', widget: const ImagesWidget()),
   Widgets(name: 'Plitki', widget: const Plitki()),
   Widgets(name: 'BottomBar', widget: const BottomBar()),
