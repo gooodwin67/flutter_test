@@ -9,10 +9,36 @@ class JsonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    printJson();
+    //printJson();
+    decode() {
+      print('decode');
+      final Map<String, dynamic> jSon = jsonDecode(jsonData2);
+      print(jSon);
+      final jSon2 = WidgetInfo.fromJson(jSon);
+      print(jSon2.myWidget["myDebug"]);
+    }
+
+    encode() {
+      print('encode');
+    }
+
     return MaterialApp(
       home: Scaffold(
-        body: Container(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: decode,
+                child: Text('decode'),
+              ),
+              ElevatedButton(
+                onPressed: encode,
+                child: Text('encode'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -53,22 +79,70 @@ printJson() {
 
 String jsonData2 = """
 {
-  
-    "name": "Andrey",
-    "surname": "Aleynik",
-    "age": 38,
-    "adresses": [
-      {
-        "city": "Smolensk",
-        "street": "Garaburdy",
-        "house": 17
-      },
-      {
-        "city": "Smolensk",
-        "street": "Nahimova",
-        "house": 18
-      }
-    ]
-  
-}
+  "myWidget": {
+    "myDebug": "on",
+    "myWindow": {
+        "title": "Sample Konfabulator Widget",
+        "name": "main_window",
+        "width": 500,
+        "height": 500
+    },
+    "myImage": { 
+        "src": "Images/Sun.png",
+        "name": "sun1",
+        "hOffset": 250,
+        "vOffset": 250,
+        "alignment": "center"
+    }
+  }
+}  
 """;
+
+class WidgetInfo {
+  final Map myWidget;
+
+  WidgetInfo({required this.myWidget});
+
+  factory WidgetInfo.fromJson(Map<String, dynamic> json) {
+    return WidgetInfo(
+      myWidget: json["myWidget"],
+    );
+  }
+}
+
+class WidgetInfoResponce {
+  final String myDebug;
+  final WindowInfoResponce myWindow;
+  final ImageInfoResponce myImage;
+
+  WidgetInfoResponce(
+      {required this.myDebug, required this.myWindow, required this.myImage});
+
+  factory WidgetInfoResponce.fromJson(Map<String, dynamic> json) {
+    return WidgetInfoResponce(
+      myDebug: json["myDebug"] as String,
+      myWindow: json["myWindow"] as WindowInfoResponce,
+      myImage: json["myImage"] as ImageInfoResponce,
+    );
+  }
+}
+
+class WindowInfoResponce {
+  final String myTitle;
+  final String myName;
+  final int myWidth;
+  final int myHeight;
+
+  WindowInfoResponce(this.myTitle, this.myName, this.myWidth, this.myHeight);
+}
+
+class ImageInfoResponce {
+  final String mySrc;
+  final String myName;
+  final int myHOffset;
+  final int myVOffset;
+  final String myAlignment;
+
+  ImageInfoResponce(this.mySrc, this.myName, this.myHOffset, this.myVOffset,
+      this.myAlignment);
+}
