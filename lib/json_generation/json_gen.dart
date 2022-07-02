@@ -1,14 +1,20 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'json_gen.g.dart';
 
 class JSonGenWidget extends StatelessWidget {
   const JSonGenWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //printJson();
     decode() {
       print('decode');
+      Map<String, dynamic> userMap = jsonDecode(jsonData1);
+      var user = User.fromJson(userMap);
+      print(user.name);
     }
 
     encode() {
@@ -37,6 +43,19 @@ class JSonGenWidget extends StatelessWidget {
   }
 }
 
+@JsonSerializable()
+class User {
+  final String name;
+  final String surname;
+  final int age;
+
+  User(this.name, this.surname, this.age);
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return _$UserFromJson(json);
+  }
+}
+
 String jsonData1 = """
 {
   "name": "Andrey",
@@ -44,22 +63,6 @@ String jsonData1 = """
   "age": 38
 }
 """;
-
-class User {
-  String name;
-  final String surname;
-  final int age;
-
-  User(this.name, this.surname, this.age);
-
-  User.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        surname = json['surname'],
-        age = json['age'];
-
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'surname': surname, 'age': age};
-}
 
 String jsonData2 = """
 {

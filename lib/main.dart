@@ -7,6 +7,7 @@ import 'package:flutterprojects/buttons.dart';
 import 'package:flutterprojects/draw.dart';
 import 'package:flutterprojects/images.dart';
 import 'package:flutterprojects/json_generation/json_gen.dart';
+import 'package:flutterprojects/json_generation/json_gen2.dart';
 import 'package:flutterprojects/list_view.dart';
 import 'package:flutterprojects/bank_app.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
@@ -37,7 +38,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(JSonGenWidget());
+  runApp(JSonGenWidget2());
 }
 
 class MainApp extends StatelessWidget {
