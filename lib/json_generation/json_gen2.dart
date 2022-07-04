@@ -73,10 +73,10 @@ class ImageResponse {
   ImageResponse(this.url, this.width, this.height);
 
   factory ImageResponse.fromJson(Map<String, dynamic> json) {
-    return _$ImageFromJson(json);
+    return _$ImageResponseFromJson(json);
   }
   Map<String, dynamic> toJson() {
-    return _$ImageToJson(this);
+    return _$ImageResponseToJson(this);
   }
 }
 

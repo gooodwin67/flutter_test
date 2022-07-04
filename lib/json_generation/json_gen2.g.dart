@@ -20,13 +20,15 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'image': instance.image,
     };
 
-ImageResponse _$ImageFromJson(Map<String, dynamic> json) => ImageResponse(
+ImageResponse _$ImageResponseFromJson(Map<String, dynamic> json) =>
+    ImageResponse(
       json['url'] as String,
       json['width'] as int,
       json['height'] as int,
     );
 
-Map<String, dynamic> _$ImageToJson(ImageResponse instance) => <String, dynamic>{
+Map<String, dynamic> _$ImageResponseToJson(ImageResponse instance) =>
+    <String, dynamic>{
       'url': instance.url,
       'width': instance.width,
       'height': instance.height,

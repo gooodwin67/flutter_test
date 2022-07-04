@@ -1,41 +1,52 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class JSonGenWidget3 extends StatelessWidget {
-  const JSonGenWidget3({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'json2.g.dart';
+
+//flutter pub run build_runner build
+
+class JSon2Widget extends StatelessWidget {
+  const JSon2Widget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //printJson();
-    decode() {
-      print('decode');
-    }
+    List usersList = jsonDecode(usersJson);
+    List UsersClassList = usersList.map((e) => UserRes.fromJson(e)).toList();
 
-    encode() {
-      print('encode');
-    }
+    List adressList =
+        UsersClassList.map((e) => AddressRes.fromJson(e.address)).toList();
+
+    List geoList = adressList.map((e) => GeoRes.fromJson(e.geo)).toList();
 
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: decode,
-                child: Text('decode'),
-              ),
-              ElevatedButton(
-                onPressed: encode,
-                child: Text('encode'),
-              ),
-            ],
-          ),
-        ),
+        body: ListView.builder(
+            itemCount: usersList.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(10),
+                color: Colors.black12,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Text(UsersClassList[index].name),
+                    SizedBox(height: 10),
+                    Text(adressList[index].city),
+                    SizedBox(height: 10),
+                    Text(geoList[index].lat),
+                  ],
+                ),
+              );
+            }),
       ),
     );
   }
 }
 
+@JsonSerializable()
 class UserRes {
   final int id;
   final String name;
@@ -45,25 +56,55 @@ class UserRes {
   final String phone;
   final String website;
   final Map<String, dynamic> company;
+
+  UserRes(this.id, this.name, this.userName, this.email, this.address,
+      this.phone, this.website, this.company);
+
+  factory UserRes.fromJson(Map<String, dynamic> json) =>
+      _$UserResFromJson(json);
+  Map UserResToJson(Map<String, dynamic> json) => _$UserResToJson(this);
 }
 
+@JsonSerializable()
 class AddressRes {
   final String street;
   final String suite;
   final String city;
   final String zipcode;
   final Map<String, dynamic> geo;
+
+  AddressRes(this.street, this.suite, this.city, this.zipcode, this.geo);
+
+  factory AddressRes.fromJson(Map<String, dynamic> json) =>
+      _$AddressResFromJson(json);
+
+  Map AddressResToJson(Map<String, dynamic> json) => _$AddressResToJson(this);
 }
 
+@JsonSerializable()
 class GeoRes {
   final String lat;
   final String lng;
+
+  GeoRes(this.lat, this.lng);
+
+  factory GeoRes.fromJson(Map<String, dynamic> json) => _$GeoResFromJson(json);
+
+  Map GeoResToJson(Map<String, dynamic> json) => _$GeoResToJson(this);
 }
 
+@JsonSerializable()
 class CompanyRes {
   final String name;
   final String catchPhrase;
   final String bs;
+
+  CompanyRes(this.name, this.catchPhrase, this.bs);
+
+  factory CompanyRes.fromJson(Map<String, dynamic> json) =>
+      _$CompanyResFromJson(json);
+
+  Map CompanyResToJson(Map<String, dynamic> json) => _$CompanyResToJson(this);
 }
 
 String usersJson = '''
