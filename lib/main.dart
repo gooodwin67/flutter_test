@@ -6,6 +6,7 @@ import 'package:flutterprojects/bottomappbar.dart';
 import 'package:flutterprojects/buttons.dart';
 import 'package:flutterprojects/draw.dart';
 import 'package:flutterprojects/http_json/http_json.dart';
+import 'package:flutterprojects/http_json2/http_json2.dart';
 import 'package:flutterprojects/http_test/http_test.dart';
 import 'package:flutterprojects/images.dart';
 import 'package:flutterprojects/json/json.dart';
@@ -42,7 +43,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(HttpJson());
+  runApp(HttpJson2());
 }
 
 class MainApp extends StatelessWidget {
