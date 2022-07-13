@@ -90,4 +90,12 @@ class ToDoBlock {
       completed: json['completed'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'userId': userId,
+      'id': id,
+      'title': title,
+      'completed': completed,
+    };
+  }
 }
