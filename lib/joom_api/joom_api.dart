@@ -13,19 +13,90 @@ class JoomApi extends StatefulWidget {
 }
 
 class _JoomApiState extends State<JoomApi> {
+  String categoryImagePath = '';
+  String categoryImageName = '';
+  String catImage = 'assets/loading.gif';
+  bool status = false;
+
   Future getData() async {
-    final str = "email:pass";
+    final str = "gooodwin67@yandex.ru:vlesu1525yes";
     final bytes = utf8.encode(str);
     final base64Str = base64.encode(bytes);
 
+    String token;
+
     var response = await http.post(
       Uri.parse(
-          'https://site.ru/index.php?option=com_jshopping&controller=addon_api'),
+          'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
       headers: {'Authorization': 'Basic $base64Str'},
-      body: {},
+      body: {
+        'section': 'connection',
+        'task': 'open',
+      },
     );
+    var mapp = jsonDecode(response.body);
+    token = mapp['result'];
 
-    print(response.body);
+    try {
+      var responseConfig = await http.post(
+        Uri.parse(
+            'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
+        headers: {'Authorization': 'Bearer  $token'},
+        body: {
+          'section': 'shop',
+          'task': 'config',
+        },
+      );
+
+      var responseCategoryIds = await http.post(
+        Uri.parse(
+            'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
+        headers: {'Authorization': 'Bearer  $token'},
+        body: {
+          'section': 'category',
+          'task': 'ids',
+        },
+      );
+      var responseCategoryIdsMap =
+          jsonDecode(responseCategoryIds.body)['result'];
+      print(responseCategoryIdsMap.runtimeType);
+
+      var responseCategory = await http.post(
+        Uri.parse(
+            'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
+        headers: {'Authorization': 'Bearer  $token'},
+        body: {
+          "section": "category",
+          "task": "item",
+          "args[id]": '1',
+        },
+      );
+
+      var responseConfigMap = jsonDecode(responseConfig.body);
+      var responseCategoryMap = jsonDecode(responseCategory.body);
+      print(responseCategoryMap);
+
+      setState(() {
+        // responseConfig.statusCode == 200 ? status = true : status = false;
+        // categoryImagePath =
+        //     responseConfigMap['result']['image_category_live_path'];
+        // categoryImageName =
+        //     responseCategoryMap['result']['category']['category_image'];
+        // catImage = categoryImagePath + '/' + categoryImageName;
+      });
+    } catch (e) {
+      print('error: $e');
+    }
+
+    var responseClose = await http.post(
+      Uri.parse(
+          'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
+      headers: {'Authorization': 'Bearer  $token'},
+      body: {
+        'section': 'connection',
+        'task': 'close',
+      },
+    );
   }
 
   @override
@@ -38,8 +109,20 @@ class _JoomApiState extends State<JoomApi> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Container(
-          child: Text('data'),
+        body: Center(
+          child: Container(
+              // child: status
+              //     ? Image.network(
+              //         '$catImage',
+              //         width: 100,
+              //         height: 100,
+              //       )
+              //     : Image.asset(
+              //         '$catImage',
+              //         width: 100,
+              //         height: 100,
+              //       ),
+              ),
         ),
       ),
     );
