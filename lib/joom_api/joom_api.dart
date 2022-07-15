@@ -22,6 +22,7 @@ class _JoomApiState extends State<JoomApi> {
     final str = "gooodwin67@yandex.ru:vlesu1525yes";
     final bytes = utf8.encode(str);
     final base64Str = base64.encode(bytes);
+    print(base64Str);
 
     String token;
 
@@ -34,32 +35,34 @@ class _JoomApiState extends State<JoomApi> {
         'task': 'open',
       },
     );
+    print(response.statusCode);
     var mapp = jsonDecode(response.body);
+    //print(response.body);
     token = mapp['result'];
 
     try {
-      var responseConfig = await http.post(
-        Uri.parse(
-            'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
-        headers: {'Authorization': 'Bearer  $token'},
-        body: {
-          'section': 'shop',
-          'task': 'config',
-        },
-      );
+      // var responseConfig = await http.post(
+      //   Uri.parse(
+      //       'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api'),
+      //   headers: {'Authorization': 'Bearer  $token'},
+      //   body: {
+      //     'section': 'shop',
+      //     'task': 'config',
+      //   },
+      // );
 
-      var responseCategoryIds = await http.post(
-        Uri.parse(
-            'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
-        headers: {'Authorization': 'Bearer  $token'},
-        body: {
-          'section': 'category',
-          'task': 'ids',
-        },
-      );
-      var responseCategoryIdsMap =
-          jsonDecode(responseCategoryIds.body)['result'];
-      print(responseCategoryIdsMap.runtimeType);
+      // var responseCategoryIds = await http.post(
+      //   Uri.parse(
+      //       'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api'),
+      //   headers: {'Authorization': 'Bearer  $token'},
+      //   body: {
+      //     'section': 'category',
+      //     'task': 'ids',
+      //   },
+      // );
+      // var responseCategoryIdsMap =
+      //     jsonDecode(responseCategoryIds.body)['result'];
+      //print(responseCategoryIdsMap.runtimeType);
 
       var responseCategory = await http.post(
         Uri.parse(
@@ -67,12 +70,13 @@ class _JoomApiState extends State<JoomApi> {
         headers: {'Authorization': 'Bearer  $token'},
         body: {
           "section": "category",
-          "task": "item",
-          "args[id]": '1',
+          "task": "items",
+          "args[ids]": [1, 2, 3],
         },
       );
 
-      var responseConfigMap = jsonDecode(responseConfig.body);
+      // var responseConfigMap = jsonDecode(responseConfig.body);
+      print(responseCategory.statusCode);
       var responseCategoryMap = jsonDecode(responseCategory.body);
       print(responseCategoryMap);
 
@@ -88,15 +92,15 @@ class _JoomApiState extends State<JoomApi> {
       print('error: $e');
     }
 
-    var responseClose = await http.post(
-      Uri.parse(
-          'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
-      headers: {'Authorization': 'Bearer  $token'},
-      body: {
-        'section': 'connection',
-        'task': 'close',
-      },
-    );
+    // var responseClose = await http.post(
+    //   Uri.parse(
+    //       'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api'),
+    //   headers: {'Authorization': 'Bearer  $token'},
+    //   body: {
+    //     'section': 'connection',
+    //     'task': 'close',
+    //   },
+    // );
   }
 
   @override
