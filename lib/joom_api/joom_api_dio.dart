@@ -25,29 +25,61 @@ class _JoomApiDioState extends State<JoomApiDio> {
     final base64Str = base64.encode(bytes);
 
     String token;
+
+    var formOpen = FormData.fromMap({
+      'section': 'connection',
+      'task': 'open',
+    });
+
     var dio = Dio();
     var response = await dio.post(
-        'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
-        options: Options(
-          headers: {'Authorization': 'Basic $base64Str'},
-        ),
-        data: {
-          'section': 'connection',
-          'task': 'open',
-        });
+      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      options: Options(
+        headers: {'Authorization': 'Basic $base64Str'},
+      ),
+      data: formOpen,
+    );
     print(response.data);
-    //var mapp = jsonDecode(response.data);
-    //token = mapp;
 
-    // var responseClose = await http.post(
-    //   Uri.parse(
-    //       'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api'),
-    //   headers: {'Authorization': 'Bearer  $token'},
-    //   body: {
-    //     'section': 'connection',
-    //     'task': 'close',
-    //   },
-    // );
+    var mapp = jsonDecode(response.data);
+
+    token = mapp['result'];
+
+    var formData = FormData.fromMap({
+      "section": "category",
+      "task": "items",
+      "args[ids]": [
+        [1],
+        [2],
+        [3]
+      ]
+    });
+
+    var responseData = await dio.post(
+      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+      data: formData,
+    );
+    var responseDataMap = jsonDecode(responseData.data);
+    //print(responseDataMap.runtimeType);
+    var res = responseDataMap['result'];
+    var res2 = res[2.toString()]['category'];
+    print(res2['category_id']);
+
+    var formDataClose = FormData.fromMap({
+      'section': 'connection',
+      'task': 'close',
+    });
+
+    var responseClose = await dio.post(
+      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+      data: formDataClose,
+    );
   }
 
   @override

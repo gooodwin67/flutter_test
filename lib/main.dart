@@ -45,7 +45,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(JoomApi());
+  runApp(JoomApiDio());
 }
 
 class MainApp extends StatelessWidget {
