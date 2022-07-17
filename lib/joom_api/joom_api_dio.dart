@@ -33,7 +33,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
 
     var dio = Dio();
     var response = await dio.post(
-      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
       options: Options(
         headers: {'Authorization': 'Basic $base64Str'},
       ),
@@ -56,7 +56,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     });
 
     var responseData = await dio.post(
-      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
       ),
@@ -66,7 +66,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     //print(responseDataMap.runtimeType);
     var res = responseDataMap['result'];
     var res2 = res[2.toString()]['category'];
-    print(res2['category_id']);
+    print(res2);
 
     var formDataClose = FormData.fromMap({
       'section': 'connection',
@@ -74,7 +74,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     });
 
     var responseClose = await dio.post(
-      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api',
+      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
       ),
