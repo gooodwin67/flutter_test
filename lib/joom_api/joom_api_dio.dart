@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 
@@ -51,7 +52,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
       "args[ids]": [
         [1],
         [2],
-        [3]
+        [3],
       ]
     });
 
@@ -62,11 +63,50 @@ class _JoomApiDioState extends State<JoomApiDio> {
       ),
       data: formData,
     );
-    var responseDataMap = jsonDecode(responseData.data);
-    //print(responseDataMap.runtimeType);
-    var res = responseDataMap['result'];
-    var res2 = res[2.toString()]['category'];
-    print(res2);
+
+    var formProdsAllId = FormData.fromMap({
+      "section": "product",
+      "task": "ids",
+    });
+
+    var responseProdAllId = await dio.post(
+        'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+        data: formProdsAllId);
+
+    var responseProdAllIdMap = jsonDecode(responseProdAllId.data);
+
+    List prodAllId = responseProdAllIdMap['result'];
+
+    var formProdsAll = FormData.fromMap({
+      "section": "product",
+      "task": "items",
+      "args[ids]": prodAllId.map((e) => [e]).toList()
+    });
+
+    var responseProdAll = await dio.post(
+        'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+        data: formProdsAll);
+
+    // Map<String, dynamic> responseProdAllMap = json.decode(responseProdAll.data);
+
+    // Map<String, dynamic> prodAll = responseProdAllMap['result'];
+    // List<dynamic> prodData = prodAll["1"];
+
+    Map<String, dynamic> prodData =
+        Map<String, dynamic>.from(json.decode(responseProdAll.data));
+
+    print(prodData);
+
+    //name_ru-RU
+    //var productss = prodAll['1'].map((e) => e);
+    // var products = prodAll.map((e) => Product.fromJson(e)).toList();
+    //(productss);
 
     var formDataClose = FormData.fromMap({
       'section': 'connection',
@@ -109,5 +149,15 @@ class _JoomApiDioState extends State<JoomApiDio> {
         ),
       ),
     );
+  }
+}
+
+class Product {
+  final String name;
+
+  Product({required this.name});
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(name: json['name_ru-RU']);
   }
 }
