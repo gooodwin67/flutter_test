@@ -17,15 +17,15 @@ class _JsonTest1State extends State<JsonTest1> {
   }
 
   getJson() {
-    print(jsonExample.runtimeType);
+    print(jsonExample.runtimeType); //String
 
     var jsonMap = jsonDecode(jsonExample);
 
-    print(jsonMap.runtimeType);
+    print(jsonMap.runtimeType); //_InternalLinkedHashMap<String, dynamic>
 
     var item = Item.fromJson(jsonMap);
 
-    print(item.key1);
+    print(item.key1); //1
   }
 
   @override

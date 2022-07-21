@@ -11,9 +11,11 @@ class HttpJson2 extends StatefulWidget {
 
 class _HttpJson2State extends State<HttpJson2> {
   List todoList = [];
+  List todoList2 = [];
   bool dataLoad = false;
 
   Future getData() async {
+    print(todoList2[0].title);
     var response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
     List responseMap = jsonDecode(response.body);
