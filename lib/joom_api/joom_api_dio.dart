@@ -6,6 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:json_annotation/json_annotation.dart';
+
+part 'joom_api_dio.g.dart';
 
 class JoomApiDio extends StatefulWidget {
   const JoomApiDio({Key? key}) : super(key: key);
@@ -87,6 +90,34 @@ class _JoomApiDioState extends State<JoomApiDio> {
     );
   }
 }
+
+@JsonSerializable()
+class ResJson {
+  final String status;
+  final String status2;
+  final Map<String, dynamic> result;
+
+  ResJson(this.status, this.status2, this.result);
+
+  factory ResJson.fromJson(Map<String, dynamic> json) =>
+      _$ResJsonFromJson(json);
+}
+
+String myJson = '''
+{
+  'status': 'ok',
+  'status2': 'ok2',
+  'result': {
+    "1": {
+      "available": 'atr1',
+      'product' : {
+        'id': 1,
+        'name': 'Product1'
+      }
+    }
+  }
+}
+''';
 
 String usersJson = '''
 {
