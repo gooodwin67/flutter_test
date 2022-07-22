@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:json_annotation/json_annotation.dart';
-
-part 'joom_api_dio.g.dart';
 
 class JoomApiDio extends StatefulWidget {
   const JoomApiDio({Key? key}) : super(key: key);
@@ -61,6 +56,11 @@ class _JoomApiDioState extends State<JoomApiDio> {
         ),
         data: formResponseProdAll);
 
+    List myJsonMap = jsonDecode(myJson);
+
+    List resJson = myJsonMap.map((e) => ResJson.fromJson(e)).toList();
+    //print(resJson);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     var formDataClose = FormData.fromMap({
       'section': 'connection',
@@ -91,32 +91,92 @@ class _JoomApiDioState extends State<JoomApiDio> {
   }
 }
 
-@JsonSerializable()
 class ResJson {
   final String status;
   final String status2;
   final Map<String, dynamic> result;
 
-  ResJson(this.status, this.status2, this.result);
+  ResJson({required this.status, required this.status2, required this.result});
 
-  factory ResJson.fromJson(Map<String, dynamic> json) =>
-      _$ResJsonFromJson(json);
+  factory ResJson.fromJson(Map<String, dynamic> json) {
+    return ResJson(
+      status: json['status'],
+      status2: json['status2'],
+      result: json[ResJsonResult] as Map<String, dynamic>,
+    );
+  }
+}
+
+class ResJsonResult {
+  final Map<String, dynamic> sss;
+
+  ResJsonResult({required this.sss});
+
+  factory ResJsonResult.fromJson(Map<String, dynamic> json) {
+    return ResJsonResult(
+      sss: json[ResItemJson] as Map<String, dynamic>,
+    );
+  }
+}
+
+class ResItemJson {
+  final String available;
+  final Map<String, dynamic> product;
+
+  ResItemJson({required this.available, required this.product});
+
+  factory ResItemJson.fromJson(Map<String, dynamic> json) {
+    return ResItemJson(
+      available: json['available'],
+      product: json[ProductJson] as Map<String, dynamic>,
+    );
+  }
+}
+
+class ProductJson {
+  final int id;
+  final String name;
+
+  ProductJson({required this.id, required this.name});
+
+  factory ProductJson.fromJson(Map<String, dynamic> json) {
+    return ProductJson(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
 }
 
 String myJson = '''
-{
-  'status': 'ok',
-  'status2': 'ok2',
-  'result': {
-    "1": {
-      "available": 'atr1',
-      'product' : {
-        'id': 1,
-        'name': 'Product1'
+[
+  {
+    "status": "ok",
+    "status2": "ok2",
+    "result": {
+      "sss": {
+        "available": "atr1",
+        "product" : {
+          "id": 1,
+          "name": "Product1"
+        }
+      }
+    }
+  },
+  {
+    "status": "ok",
+    "status2": "ok2",
+    "result": {
+      "sss": {
+        "available": "atr1",
+        "product" : {
+          "id": 1,
+          "name": "Product1"
+        }
       }
     }
   }
-}
+
+]
 ''';
 
 String usersJson = '''
