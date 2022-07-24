@@ -59,7 +59,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     List myJsonMap = jsonDecode(myJson);
 
     List resJson = myJsonMap.map((e) => ResJson.fromJson(e)).toList();
-    //print(resJson);
+    print(resJson[0].result.sss);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     var formDataClose = FormData.fromMap({
@@ -94,7 +94,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
 class ResJson {
   final String status;
   final String status2;
-  final Map<String, dynamic> result;
+  final ResJsonResult result;
 
   ResJson({required this.status, required this.status2, required this.result});
 
@@ -102,20 +102,32 @@ class ResJson {
     return ResJson(
       status: json['status'],
       status2: json['status2'],
-      result: json[ResJsonResult] as Map<String, dynamic>,
+      result: ResJsonResult.fromJson(json["result"]),
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'status': status,
+      'status2': status2,
+      'result': result,
+    };
   }
 }
 
 class ResJsonResult {
-  final Map<String, dynamic> sss;
+  final String sss;
 
   ResJsonResult({required this.sss});
 
   factory ResJsonResult.fromJson(Map<String, dynamic> json) {
     return ResJsonResult(
-      sss: json[ResItemJson] as Map<String, dynamic>,
+      sss: json['sss'],
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "sss": sss,
+    };
   }
 }
 
@@ -148,6 +160,20 @@ class ProductJson {
 }
 
 String myJson = '''
+[
+  {
+    "status": "ok",
+    "status2": "ok2",
+    "result": {
+      "sss": "asd"
+    }
+    
+  }
+
+
+]
+''';
+String myJson2 = '''
 [
   {
     "status": "ok",
