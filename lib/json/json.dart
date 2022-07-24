@@ -61,7 +61,7 @@ class JSonGenWidget3 extends StatelessWidget {
 class UserRes {
   final int id;
   final String name;
-  final String userName;
+  final String username;
   final String email;
   final Map<String, dynamic> address;
   final String phone;
@@ -71,7 +71,7 @@ class UserRes {
   UserRes(
       {required this.id,
       required this.name,
-      required this.userName,
+      required this.username,
       required this.email,
       required this.address,
       required this.phone,
@@ -82,7 +82,7 @@ class UserRes {
     return UserRes(
       id: json['id'],
       name: json['name'],
-      userName: json['username'],
+      username: json['username'],
       email: json['email'],
       address: json['address'],
       phone: json['phone'],
@@ -95,7 +95,7 @@ class UserRes {
     return {
       'id': id,
       'name': name,
-      'username': userName,
+      'username': username,
       'email': email,
       'address': address,
       'phone': phone,

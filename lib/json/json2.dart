@@ -50,14 +50,14 @@ class JSon2Widget extends StatelessWidget {
 class UserRes {
   final int id;
   final String name;
-  final String userName;
+  final String username;
   final String email;
   final Map<String, dynamic> address;
   final String phone;
   final String website;
   final Map<String, dynamic> company;
 
-  UserRes(this.id, this.name, this.userName, this.email, this.address,
+  UserRes(this.id, this.name, this.username, this.email, this.address,
       this.phone, this.website, this.company);
 
   factory UserRes.fromJson(Map<String, dynamic> json) =>

@@ -9,7 +9,7 @@ part of 'json2.dart';
 UserRes _$UserResFromJson(Map<String, dynamic> json) => UserRes(
       json['id'] as int,
       json['name'] as String,
-      json['userName'] as String,
+      json['username'] as String,
       json['email'] as String,
       json['address'] as Map<String, dynamic>,
       json['phone'] as String,
@@ -20,7 +20,7 @@ UserRes _$UserResFromJson(Map<String, dynamic> json) => UserRes(
 Map<String, dynamic> _$UserResToJson(UserRes instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'userName': instance.userName,
+      'userName': instance.username,
       'email': instance.email,
       'address': instance.address,
       'phone': instance.phone,
