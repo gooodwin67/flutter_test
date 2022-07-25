@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class JoomApiDio extends StatefulWidget {
 }
 
 class _JoomApiDioState extends State<JoomApiDio> {
+  String siteUrl =
+      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api';
   Future getData() async {
     final str = "gooodwin67@yandex.ru:vlesu1525yes";
     final bytes = utf8.encode(str);
@@ -27,7 +30,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
 
     var dio = Dio();
     var responseOpen = await dio.post(
-      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
+      siteUrl,
       options: Options(
         headers: {'Authorization': 'Basic $base64Str'},
       ),
@@ -40,26 +43,44 @@ class _JoomApiDioState extends State<JoomApiDio> {
     token = mapp['result'];
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     ///
+    ///
+    var formResponseProdIds = FormData.fromMap({
+      'section': 'product',
+      'task': 'ids',
+    });
+
+    var responseProdIds = await dio.post(siteUrl,
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+        data: formResponseProdIds);
+    var allIdsMap = jsonDecode(responseProdIds.data);
+    var allIds = ResIds.fromJson(allIdsMap);
+    List argsIdsList = allIds.result;
+
+    List argsIds = argsIdsList.map((e) => [e]).toList();
+    //print(argsIds);
+
+    ///////////////////////////////////////////////////////////////////////////////
+
     var formResponseProdAll = FormData.fromMap({
       'section': 'product',
       'task': 'items',
-      'args[ids]': [
-        [1],
-        [2]
-      ],
+      'args[ids]': argsIds,
     });
 
-    var responseProdAll = await dio.post(
-        'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
+    var responseProdAll = await dio.post(siteUrl,
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
         data: formResponseProdAll);
 
-    List myJsonMap = jsonDecode(myJson);
+    var myJsonMap = jsonDecode(responseProdAll.data);
 
-    List resJson = myJsonMap.map((e) => ResJson.fromJson(e)).toList();
-    print(resJson[0].result.sss);
+    var response = ResJson.fromJson(myJsonMap);
+
+    print(response.result.ids.length);
+    //print(response.result.ids[1].product.name);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     var formDataClose = FormData.fromMap({
@@ -68,7 +89,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     });
 
     var responseClose = await dio.post(
-      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api',
+      siteUrl,
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
       ),
@@ -91,56 +112,57 @@ class _JoomApiDioState extends State<JoomApiDio> {
   }
 }
 
+class ResIds {
+  final List result;
+
+  ResIds({required this.result});
+
+  factory ResIds.fromJson(Map<String, dynamic> json) {
+    return ResIds(
+      result: json['result'],
+    );
+  }
+}
+
 class ResJson {
   final String status;
-  final String status2;
   final ResJsonResult result;
 
-  ResJson({required this.status, required this.status2, required this.result});
+  ResJson({required this.status, required this.result});
 
   factory ResJson.fromJson(Map<String, dynamic> json) {
     return ResJson(
       status: json['status'],
-      status2: json['status2'],
       result: ResJsonResult.fromJson(json["result"]),
     );
-  }
-  Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'status2': status2,
-      'result': result,
-    };
   }
 }
 
 class ResJsonResult {
-  final String sss;
+  final List ids;
 
-  ResJsonResult({required this.sss});
+  ResJsonResult({required this.ids});
 
   factory ResJsonResult.fromJson(Map<String, dynamic> json) {
+    List listIds = [];
+    json.forEach((key, value) {
+      listIds.add(value);
+    });
     return ResJsonResult(
-      sss: json['sss'],
-    );
-  }
-  Map<String, dynamic> toJson() {
-    return {
-      "sss": sss,
-    };
+        ids: listIds.map((e) => ResItemJson.fromJson(e)).toList());
   }
 }
 
 class ResItemJson {
-  final String available;
-  final Map<String, dynamic> product;
+  final bool allow_review;
+  final ProductJson product;
 
-  ResItemJson({required this.available, required this.product});
+  ResItemJson({required this.allow_review, required this.product});
 
   factory ResItemJson.fromJson(Map<String, dynamic> json) {
     return ResItemJson(
-      available: json['available'],
-      product: json[ProductJson] as Map<String, dynamic>,
+      allow_review: json['allow_review'],
+      product: ProductJson.fromJson(json['product']),
     );
   }
 }
@@ -153,57 +175,11 @@ class ProductJson {
 
   factory ProductJson.fromJson(Map<String, dynamic> json) {
     return ProductJson(
-      id: json['id'],
+      id: json['product_id'],
       name: json['name'],
     );
   }
 }
-
-String myJson = '''
-[
-  {
-    "status": "ok",
-    "status2": "ok2",
-    "result": {
-      "sss": "asd"
-    }
-    
-  }
-
-
-]
-''';
-String myJson2 = '''
-[
-  {
-    "status": "ok",
-    "status2": "ok2",
-    "result": {
-      "sss": {
-        "available": "atr1",
-        "product" : {
-          "id": 1,
-          "name": "Product1"
-        }
-      }
-    }
-  },
-  {
-    "status": "ok",
-    "status2": "ok2",
-    "result": {
-      "sss": {
-        "available": "atr1",
-        "product" : {
-          "id": 1,
-          "name": "Product1"
-        }
-      }
-    }
-  }
-
-]
-''';
 
 String usersJson = '''
 {
