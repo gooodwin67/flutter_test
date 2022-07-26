@@ -15,7 +15,9 @@ class JoomApiDio extends StatefulWidget {
 
 class _JoomApiDioState extends State<JoomApiDio> {
   String siteUrl =
-      'http://testjoom.roool.ru/index.php?option=com_jshopping&controller=addon_api';
+      'https://noutparts67.ru/index.php?option=com_jshopping&controller=addon_api';
+  var response;
+  String status = "0";
   Future getData() async {
     final str = "gooodwin67@yandex.ru:vlesu1525yes";
     final bytes = utf8.encode(str);
@@ -61,7 +63,7 @@ class _JoomApiDioState extends State<JoomApiDio> {
     List argsIds = argsIdsList.map((e) => [e]).toList();
     //print(argsIds);
 
-    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     var formResponseProdAll = FormData.fromMap({
       'section': 'product',
@@ -76,11 +78,13 @@ class _JoomApiDioState extends State<JoomApiDio> {
         data: formResponseProdAll);
 
     var myJsonMap = jsonDecode(responseProdAll.data);
+    setState(() {
+      response = ResJson.fromJson(myJsonMap);
+      status = response.status;
+    });
 
-    var response = ResJson.fromJson(myJsonMap);
-
-    print(response.result.ids.length);
-    //print(response.result.ids[1].product.name);
+    //print(response.result.ids.length);
+    //print(response.result.ids[1].product.productQuantity);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     var formDataClose = FormData.fromMap({
@@ -107,19 +111,97 @@ class _JoomApiDioState extends State<JoomApiDio> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      home: Scaffold(
+        backgroundColor: Color.fromARGB(255, 228, 228, 228),
+        body: SafeArea(
+            child: status == "0"
+                ? Center(child: Text('Loading...'))
+                : ListView.builder(
+                    itemCount: response.result.ids.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        color: Colors.white,
+                        child: Row(
+                          children: [
+                            Image.network(
+                              response.result.ids[index].image_product_path +
+                                  '/thumb_' +
+                                  response.result.ids[index].product.image,
+                              width: 100,
+                              height: 100,
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    response.result.ids[index].product.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        response.result.ids[index].product
+                                                .productPrice
+                                                .toString() +
+                                            'руб',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Spacer(),
+                                      response.result.ids[index].product
+                                                  .productQuantity >
+                                              0
+                                          ? ElevatedButton(
+                                              onPressed: () {},
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.green)),
+                                              child: const Text(
+                                                'Купить',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ))
+                                          : const ElevatedButton(
+                                              onPressed: null,
+                                              style: ButtonStyle(),
+                                              child: Text(
+                                                'Нет в наличии',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              ),
+                                            )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    })),
+      ),
     );
   }
 }
 
 class ResIds {
   final List result;
+  String status;
 
-  ResIds({required this.result});
+  ResIds({required this.result, required this.status});
 
   factory ResIds.fromJson(Map<String, dynamic> json) {
     return ResIds(
       result: json['result'],
+      status: json['status'],
     );
   }
 }
@@ -156,13 +238,18 @@ class ResJsonResult {
 class ResItemJson {
   final bool allow_review;
   final ProductJson product;
+  final String image_product_path;
 
-  ResItemJson({required this.allow_review, required this.product});
+  ResItemJson(
+      {required this.allow_review,
+      required this.product,
+      required this.image_product_path});
 
   factory ResItemJson.fromJson(Map<String, dynamic> json) {
     return ResItemJson(
       allow_review: json['allow_review'],
       product: ProductJson.fromJson(json['product']),
+      image_product_path: json['image_product_path'],
     );
   }
 }
@@ -170,13 +257,25 @@ class ResItemJson {
 class ProductJson {
   final int id;
   final String name;
+  final String image;
+  final int productPrice;
+  final int productQuantity;
 
-  ProductJson({required this.id, required this.name});
+  ProductJson({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.productPrice,
+    required this.productQuantity,
+  });
 
   factory ProductJson.fromJson(Map<String, dynamic> json) {
     return ProductJson(
       id: json['product_id'],
       name: json['name'],
+      image: json['image'],
+      productPrice: json['product_price'],
+      productQuantity: json['product_quantity'],
     );
   }
 }
