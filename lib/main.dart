@@ -16,6 +16,7 @@ import 'package:flutterprojects/json/json2.dart';
 import 'package:flutterprojects/json/json_test.dart';
 import 'package:flutterprojects/json_generation/json_gen.dart';
 import 'package:flutterprojects/json_generation/json_gen2.dart';
+import 'package:flutterprojects/json_test_new/json_new.dart';
 import 'package:flutterprojects/list_view.dart';
 import 'package:flutterprojects/bank_app.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
@@ -46,7 +47,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(JoomApiDio());
+  runApp(JsonNew());
 }
 
 class MainApp extends StatelessWidget {
