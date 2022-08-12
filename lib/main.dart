@@ -9,6 +9,8 @@ import 'package:flutterprojects/http_json/http_json.dart';
 import 'package:flutterprojects/http_json2/http_json2.dart';
 import 'package:flutterprojects/http_test/http_test.dart';
 import 'package:flutterprojects/images.dart';
+import 'package:flutterprojects/inherit_model.dart';
+import 'package:flutterprojects/inherit_widget.dart';
 import 'package:flutterprojects/joom_api/joom_api.dart';
 import 'package:flutterprojects/joom_api/joom_api_dio.dart';
 import 'package:flutterprojects/json/json.dart';
@@ -47,7 +49,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(JsonNew());
+  runApp(InheritModelTest());
 }
 
 class MainApp extends StatelessWidget {
