@@ -11,6 +11,7 @@ import 'package:flutterprojects/http_test/http_test.dart';
 import 'package:flutterprojects/images.dart';
 import 'package:flutterprojects/inherit_model.dart';
 import 'package:flutterprojects/inherit_widget.dart';
+import 'package:flutterprojects/inherit_widget2.dart';
 import 'package:flutterprojects/joom_api/joom_api.dart';
 import 'package:flutterprojects/joom_api/joom_api_dio.dart';
 import 'package:flutterprojects/json/json.dart';
@@ -27,6 +28,7 @@ import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
 import 'package:flutterprojects/providers/provider_test.dart';
 import 'package:flutterprojects/providers/providers.dart';
+import 'package:flutterprojects/rzd_test/rzd_test.dart';
 import 'package:flutterprojects/shared_pref.dart';
 import 'package:flutterprojects/test.dart';
 import 'package:flutterprojects/test_sliver.dart';
@@ -49,7 +51,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(InheritModelTest());
+  runApp(SimpleCalcWidget());
 }
 
 class MainApp extends StatelessWidget {
