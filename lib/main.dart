@@ -12,6 +12,7 @@ import 'package:flutterprojects/images.dart';
 import 'package:flutterprojects/inherit_model.dart';
 import 'package:flutterprojects/inherit_widget.dart';
 import 'package:flutterprojects/inherit_widget2.dart';
+import 'package:flutterprojects/inherit_widget3.dart';
 import 'package:flutterprojects/joom_api/joom_api.dart';
 import 'package:flutterprojects/joom_api/joom_api_dio.dart';
 import 'package:flutterprojects/json/json.dart';
@@ -51,7 +52,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(SimpleCalcWidget());
+  runApp(InheritWidget3());
 }
 
 class MainApp extends StatelessWidget {
