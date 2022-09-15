@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterprojects/navigator/cart_screen.dart';
 import 'package:flutterprojects/navigator/detailed_screen.dart';
 
 class FirstScreen extends StatelessWidget {
@@ -13,7 +14,12 @@ class FirstScreen extends StatelessWidget {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
+          icon: InkWell(
+              onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CartScreen()),
+                  ),
+              child: Icon(Icons.shopping_cart)),
           label: 'Cart',
         ),
       ]),

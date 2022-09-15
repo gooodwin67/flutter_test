@@ -29,6 +29,7 @@ import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
 import 'package:flutterprojects/providers/provider_test.dart';
 import 'package:flutterprojects/providers/providers.dart';
+import 'package:flutterprojects/routemaster/routermaster.dart';
 import 'package:flutterprojects/rzd_test/rzd_test.dart';
 import 'package:flutterprojects/shared_pref.dart';
 import 'package:flutterprojects/test.dart';
@@ -52,7 +53,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(InheritWidget3());
+  runApp(RouterMaster());
 }
 
 class MainApp extends StatelessWidget {
