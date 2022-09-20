@@ -23,6 +23,8 @@ import 'package:flutterprojects/json_generation/json_gen2.dart';
 import 'package:flutterprojects/json_test_new/json_new.dart';
 import 'package:flutterprojects/list_view.dart';
 import 'package:flutterprojects/bank_app.dart';
+import 'package:flutterprojects/nav_prov_botbar/nav_prov_botbar.dart';
+import 'package:flutterprojects/nav_prov_botbar2/nav_prov_botbar2.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
@@ -53,7 +55,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(RouterMaster());
+  runApp(Nav_prov_botbar2());
 }
 
 class MainApp extends StatelessWidget {
