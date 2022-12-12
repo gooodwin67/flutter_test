@@ -27,6 +27,7 @@ import 'package:flutterprojects/nav_prov_botbar/nav_prov_botbar.dart';
 import 'package:flutterprojects/nav_prov_botbar2/nav_prov_botbar2.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
 import 'package:flutterprojects/navigator2/first_screen.dart';
+import 'package:flutterprojects/navigator2/first_screen2.dart';
 import 'package:flutterprojects/navigator2/second_screen.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
@@ -135,7 +136,7 @@ class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
   void goToRoute(route) {
     setState(() {
       thisRoute = route;
-      print(route);
+      //print(route);
     });
   }
 
@@ -144,16 +145,20 @@ class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
     return MaterialApp(
       home: Navigator(
         pages: [
-          if (thisRoute == '/first')
-            MaterialPage(
-              child: Navigator2TestFirstScreen(goToRoute),
-            ),
+          MaterialPage(
+            child: Navigator2TestFirstScreen(goToRoute),
+          ),
           if (thisRoute == '/second')
             MaterialPage(
               child: Navigator2TestSecondScreen(goToRoute),
             ),
+          if (thisRoute == '/first/first2')
+            MaterialPage(
+              child: Navigator2TestFirstScreen2(goToRoute),
+            ),
         ],
         onPopPage: (route, result) {
+          print(route.toString());
           if (!route.didPop(result)) {
             return false;
           }

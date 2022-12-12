@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterprojects/navigator2/bottom_bar.dart';
 
-class Navigator2TestSecondScreen extends StatelessWidget {
+class Navigator2TestFirstScreen2 extends StatelessWidget {
   final Function goToRoute;
-  const Navigator2TestSecondScreen(this.goToRoute, {Key? key})
+  const Navigator2TestFirstScreen2(this.goToRoute, {Key? key})
       : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class Navigator2TestSecondScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('SecondPage'),
+            Text('FirstPage2'),
           ],
         ),
       ),

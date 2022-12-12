@@ -8,6 +8,7 @@ class Navigator2TestFirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       bottomNavigationBar: BottomBar(goToRoute),
       body: Container(
         width: double.infinity,
@@ -16,6 +17,11 @@ class Navigator2TestFirstScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('FirstPage'),
+            ElevatedButton(
+                onPressed: () {
+                  goToRoute('/first/first2');
+                },
+                child: Text('ToFirstScreen2'))
           ],
         ),
       ),
