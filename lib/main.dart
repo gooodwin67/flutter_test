@@ -26,6 +26,8 @@ import 'package:flutterprojects/bank_app.dart';
 import 'package:flutterprojects/nav_prov_botbar/nav_prov_botbar.dart';
 import 'package:flutterprojects/nav_prov_botbar2/nav_prov_botbar2.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
+import 'package:flutterprojects/navigator2/first_screen.dart';
+import 'package:flutterprojects/navigator2/second_screen.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
 import 'package:flutterprojects/inherit.dart';
@@ -55,7 +57,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(Nav_prov_botbar2());
+  runApp(MainAppNavigatorTest());
 }
 
 class MainApp extends StatelessWidget {
@@ -117,4 +119,47 @@ class Widgets {
   final Widget widget;
 
   Widgets({required this.name, required this.widget});
+}
+
+class MainAppNavigatorTest extends StatefulWidget {
+  const MainAppNavigatorTest({Key? key}) : super(key: key);
+
+  @override
+  State<MainAppNavigatorTest> createState() => _MainAppNavigatorTestState();
+}
+
+class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
+  String thisRoute = '/first';
+  bool is404 = false;
+
+  void goToRoute(route) {
+    setState(() {
+      thisRoute = route;
+      print(route);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Navigator(
+        pages: [
+          if (thisRoute == '/first')
+            MaterialPage(
+              child: Navigator2TestFirstScreen(goToRoute),
+            ),
+          if (thisRoute == '/second')
+            MaterialPage(
+              child: Navigator2TestSecondScreen(goToRoute),
+            ),
+        ],
+        onPopPage: (route, result) {
+          if (!route.didPop(result)) {
+            return false;
+          }
+          return true;
+        },
+      ),
+    );
+  }
 }
