@@ -148,7 +148,7 @@ class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
           MaterialPage(
             child: Navigator2TestFirstScreen(goToRoute),
           ),
-          if (thisRoute == '/second')
+          if (thisRoute == 'second')
             MaterialPage(
               child: Navigator2TestSecondScreen(goToRoute),
             ),

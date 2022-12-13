@@ -28,7 +28,7 @@ class BottomBar extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            goToRoute('/second');
+            goToRoute('second');
           },
           child: Container(
             alignment: Alignment.center,
