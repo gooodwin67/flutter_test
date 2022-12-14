@@ -5,6 +5,11 @@ import 'package:flutterprojects/bottom_bar.dart';
 import 'package:flutterprojects/bottomappbar.dart';
 import 'package:flutterprojects/buttons.dart';
 import 'package:flutterprojects/draw.dart';
+import 'package:flutterprojects/go_router/go_first_screen.dart';
+import 'package:flutterprojects/go_router/go_first_screen2.dart';
+import 'package:flutterprojects/go_router/go_first_screen3.dart';
+import 'package:flutterprojects/go_router/go_first_screen4.dart';
+import 'package:flutterprojects/go_router/go_second_screen.dart';
 import 'package:flutterprojects/http_json/http_json.dart';
 import 'package:flutterprojects/http_json2/http_json2.dart';
 import 'package:flutterprojects/http_test/http_test.dart';
@@ -28,6 +33,7 @@ import 'package:flutterprojects/nav_prov_botbar2/nav_prov_botbar2.dart';
 import 'package:flutterprojects/navigator/main_screen.dart';
 import 'package:flutterprojects/navigator2/first_screen.dart';
 import 'package:flutterprojects/navigator2/first_screen2.dart';
+import 'package:flutterprojects/navigator2/first_screen3.dart';
 import 'package:flutterprojects/navigator2/second_screen.dart';
 import 'package:flutterprojects/plitki_navigator.dart';
 import 'package:flutterprojects/layout.dart';
@@ -45,6 +51,9 @@ import 'package:flutterprojects/test_app.dart';
 import 'package:flutterprojects/textfield.dart';
 import 'package:flutterprojects/stak.dart';
 import 'package:flutterprojects/singe_child_scroll_view.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:provider/provider.dart';
 import 'app.dart';
 import 'json.dart';
@@ -58,7 +67,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(MainAppNavigatorTest());
+  runApp(MyApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -122,6 +131,7 @@ class Widgets {
   Widgets({required this.name, required this.widget});
 }
 
+/*
 class MainAppNavigatorTest extends StatefulWidget {
   const MainAppNavigatorTest({Key? key}) : super(key: key);
 
@@ -156,6 +166,10 @@ class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
             MaterialPage(
               child: Navigator2TestFirstScreen2(goToRoute),
             ),
+          if (thisRoute == '/first/first2/first3')
+            MaterialPage(
+              child: Navigator2TestFirstScreen3(goToRoute),
+            ),
         ],
         onPopPage: (route, result) {
           print(route.toString());
@@ -168,3 +182,69 @@ class _MainAppNavigatorTestState extends State<MainAppNavigatorTest> {
     );
   }
 }
+*/
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routeInformationParser: _router.routeInformationParser,
+      routeInformationProvider: _router.routeInformationProvider,
+      routerDelegate: _router.routerDelegate,
+    );
+  }
+}
+
+class AppRouterDelegate extends GetDelegate {
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onPopPage: (route, result) => route.didPop(result),
+      pages: currentConfiguration != null
+          ? [currentConfiguration!.currentPage!]
+          : [GetNavConfig.fromRoute('/')!.currentPage!],
+    );
+  }
+}
+
+// GoRouter configuration
+final _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const GoRouterFirstScreen();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'first2',
+          builder: (BuildContext context, GoRouterState state) {
+            return const GoRouterFirstScreen2();
+          },
+          routes: [
+            GoRoute(
+              path: 'first3',
+              builder: (BuildContext context, GoRouterState state) {
+                return const GoRouterFirstScreen3();
+              },
+              routes: [
+                GoRoute(
+                  path: 'first4',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const GoRouterFirstScreen4();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'second',
+          builder: (BuildContext context, GoRouterState state) {
+            return const GoRouterSecondScreen();
+          },
+        ),
+      ],
+    ),
+  ],
+);

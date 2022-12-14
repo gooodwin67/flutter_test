@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutterprojects/navigator2/bottom_bar.dart';
+import 'package:flutterprojects/go_router/go_bottom_bar.dart';
+import 'package:go_router/go_router.dart';
 
-class Navigator2TestFirstScreen2 extends StatelessWidget {
-  final Function goToRoute;
-  const Navigator2TestFirstScreen2(this.goToRoute, {Key? key})
-      : super(key: key);
+class GoRouterFirstScreen2 extends StatelessWidget {
+  const GoRouterFirstScreen2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: BottomBar(goToRoute),
+      bottomNavigationBar: GoBottomBar(),
       body: Container(
         width: double.infinity,
         child: Column(
@@ -20,7 +19,7 @@ class Navigator2TestFirstScreen2 extends StatelessWidget {
             Text('FirstPage2'),
             ElevatedButton(
                 onPressed: () {
-                  goToRoute('/first/first2/first3');
+                  context.go('/first2/first3');
                 },
                 child: Text('ToFirstScreen3'))
           ],
