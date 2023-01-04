@@ -23,6 +23,7 @@ import 'package:flutterprojects/joom_api/joom_api_dio.dart';
 import 'package:flutterprojects/json/json.dart';
 import 'package:flutterprojects/json/json2.dart';
 import 'package:flutterprojects/json/json_test.dart';
+import 'package:flutterprojects/json_all/json_all.dart';
 import 'package:flutterprojects/json_generation/json_gen.dart';
 import 'package:flutterprojects/json_generation/json_gen2.dart';
 import 'package:flutterprojects/json_test_new/json_new.dart';
@@ -67,7 +68,7 @@ import 'json.dart';
 //     ));
 
 void main() {
-  runApp(MyApp());
+  runApp(JsonAllTest());
 }
 
 class MainApp extends StatelessWidget {
